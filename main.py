@@ -60,21 +60,6 @@ async def register(username: str = Form(...),                        # 接收表
         (username, password, nickname, role))                        # 依序填入帳號、密碼、暱稱、角色
     return HTMLResponse("註冊成功！<a href='/w/login.html'>去登入</a>")  # 顯示成功訊息和登入連結
 
-# ==================== 練習用（第 2、3 關） ====================
-
-@app.get("/test")                                                    # 打開 /test 時
-async def test(db=Depends(getDB)):                                   # 需要資料庫連線
-    cur = await db.execute("SELECT * FROM articles;")                # 查出所有稿件
-    return await cur.fetchall()                                      # 回傳全部資料，FastAPI 自動轉成 JSON
-
-
-@app.get("/list")                                                    # 打開 /list 時
-async def articleList(request: Request, db=Depends(getDB)):          # 需要 request（給樣板）和資料庫
-    cur = await db.execute("SELECT * FROM articles order by aid;")   # 查出所有稿件，依編號排序
-    data = await cur.fetchall()                                      # 拿出全部結果（list）
-    return templates.TemplateResponse(name="list.html", request=request, context={"articles": data})  # 用 list.html 樣板顯示，資料取名 articles
-
-
 # ==================== 作者功能 ====================
 
 # --- 1. 查看自己的稿件清單 ---
