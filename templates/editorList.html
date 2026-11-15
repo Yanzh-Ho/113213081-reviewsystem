@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head><meta charset="UTF-8"><title>待審查清單</title></head>
+<body>
+	<p>編輯：{{ user.nickname }} | <a href="/logout">登出</a></p>
+	<h1>待審查稿件</h1>
+	<table border="1">
+	<tr>
+		<td>作者</td>
+		<td>類別</td>
+		<td>標題</td>
+		<td>操作</td>
+	</tr>
+	{% for a in articles %}
+	<tr>
+		<td>{{ a.nickname }}</td>
+		<td>{{ a.category }}</td>
+		<td>{{ a.title }}</td>
+		<td><a href="/editor/view/{{ a.aid }}">查看內容</a></td>
+	</tr>
+	{% endfor %}
+	</table>
+</body>
+</html>

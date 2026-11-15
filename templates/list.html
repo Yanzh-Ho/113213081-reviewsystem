@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<title>稿件清單</title>
+</head>
+<body>
+	<h1>所有稿件</h1>
+	<table border="1">
+	<tr>
+		<td>編號</td>
+		<td>類別</td>
+		<td>標題</td>
+		<td>狀態</td>
+	</tr>
+	{% for a in articles %}
+	<tr>
+		<td>{{ a.aid }}</td>
+		<td>{{ a.category }}</td>
+		<td>{{ a.title }}</td>
+		<td>{{ a.status }}</td>
+	</tr>
+	{% endfor %}
+	</table>
+</body>
+</html>

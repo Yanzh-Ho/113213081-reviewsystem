@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head><meta charset="UTF-8"><title>稿件內容</title></head>
+<body>
+	<p><a href="/editor/list">← 回待審查清單</a></p>
+	<h1>{{ a.title }}</h1>
+	<p>作者：{{ a.nickname }}　類別：{{ a.category }}　狀態：{{ a.status }}</p>
+	<hr>
+	<p style="white-space: pre-wrap">{{ a.content }}</p>
+	<hr>
+	<form method="post" action="/editor/pass/{{ a.aid }}" style="display:inline">
+		<input type="submit" value="通過">
+	</form>
+	<form method="post" action="/editor/reject/{{ a.aid }}" style="display:inline">
+		<input type="submit" value="退回">
+	</form>
+</body>
+</html>

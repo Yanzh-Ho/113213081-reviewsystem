@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head><meta charset="UTF-8"><title>我的投稿</title></head>
+<body>
+	<p>作者：{{ user.nickname }} | <a href="/logout">登出</a></p>
+	<h1>我的投稿稿件</h1>
+	<p><a href="/author/new">＋新增投稿</a></p>
+	<table border="1">
+	<tr>
+		<td>類別</td>
+		<td>標題</td>
+		<td>審查狀態</td>
+		<td>操作</td>
+	</tr>
+	{% for a in articles %}
+	<tr>
+		<td>{{ a.category }}</td>
+		<td>{{ a.title }}</td>
+		<td>{{ a.status }}</td>
+		<td>
+		{% if a.status == '編輯中' %}
+			<a href="/author/edit/{{ a.aid }}">編輯</a>
+			<form method="post" action="/author/submit/{{ a.aid }}" style="display:inline">
+				<input type="submit" value="送出投稿">
+			</form>
+			<form method="post" action="/author/delete/{{ a.aid }}" style="display:inline"
+				onsubmit="return confirm('確定要刪除嗎？')">
+				<input type="submit" value="刪除">
+			</form>
+		{% endif %}
+		</td>
+	</tr>
+	{% endfor %}
+	</table>
+</body>
+</html>

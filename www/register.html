@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<title>註冊</title>
+<style>
+	body { margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center;
+	       background-color: #eef2f6; font-family: "Microsoft JhengHei", sans-serif; }
+	.box { background-color: white; width: 320px; padding: 30px 40px; border-radius: 12px;
+	       box-shadow: 0 4px 16px rgba(0,0,0,0.12); text-align: center; }
+	.box h2 { color: #1a73e8; margin-top: 0; }
+	.box label { display: block; text-align: left; font-size: 14px; color: #555; }
+	.box input[type=text], .box input[type=password], .box select {
+	       width: 100%; padding: 10px; margin: 6px 0 16px; border: 1px solid #ccc;
+	       border-radius: 6px; box-sizing: border-box; font-size: 15px; }
+	.box input[type=submit] { width: 100%; padding: 10px; background-color: #1a73e8; color: white;
+	       border: none; border-radius: 6px; font-size: 16px; cursor: pointer; }
+</style>
+</head>
+<body>
+	<div class="box">
+		<h2>註冊新帳號</h2>
+		<form method="POST" action="/register">
+			<label>帳號</label>
+			<input type="text" name="username" required>
+			<label>密碼</label>
+			<input type="password" name="password" required>
+			<label>暱稱</label>
+			<input type="text" name="nickname" required>
+			<label>角色</label>
+			<select name="role">                         <!-- 下拉選單 -->
+				<option value="author">作者</option>      <!-- 畫面顯示「作者」，送出的值是 author -->
+				<option value="editor">編輯</option>
+			</select>
+			<input type="submit" value="註冊">
+		</form>
+		<p><a href="/w/login.html">已有帳號？回登入</a></p>
+	</div>
+</body>
+</html>

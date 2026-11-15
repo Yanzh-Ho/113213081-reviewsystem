@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head><meta charset="UTF-8"><title>編輯投稿</title></head>
+<body>
+	<h1>編輯投稿</h1>
+	<form method="post" action="/author/update">
+		<input type="hidden" name="aid" value="{{ a.aid }}">
+		類別: <input type="text" name="category" value="{{ a.category }}" required><br>
+		標題: <input type="text" name="title" size="50" value="{{ a.title }}" required><br>
+		文章內容:<br>
+		<textarea name="content" rows="10" cols="60" required>{{ a.content }}</textarea><br>
+		<input type="submit" value="儲存">
+	</form>
+	<a href="/author/list">取消</a>
+</body>
+</html>
