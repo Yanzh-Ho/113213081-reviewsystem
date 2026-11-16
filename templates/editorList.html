@@ -1,24 +1,51 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-<head><meta charset="UTF-8"><title>待審查清單</title></head>
+<head>
+<meta charset="UTF-8">
+<title>待審查清單</title>
+<style>
+	body { margin: 0; padding: 40px 20px; background-color: #eef2f6;
+	       font-family: "Microsoft JhengHei", sans-serif; }
+	.box { background-color: white; max-width: 800px; margin: 0 auto; padding: 30px 40px;
+	       border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+	.top { display: flex; justify-content: space-between; color: #555; font-size: 14px; }
+	.top a { color: #1a73e8; text-decoration: none; }
+	h1 { color: #1a73e8; font-size: 24px; }
+	table { width: 100%; border-collapse: collapse; }
+	th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e0e0e0; }
+	th { background-color: #f5f8fc; color: #555; font-size: 14px; }
+	tr:hover td { background-color: #fafcff; }
+	.btn { display: inline-block; padding: 6px 14px; background-color: #1a73e8; color: white;
+	       border-radius: 6px; text-decoration: none; font-size: 14px; }
+	.btn:hover { background-color: #155ab6; }
+	.empty { text-align: center; color: #999; padding: 30px; }
+</style>
+</head>
 <body>
-	<p>編輯：{{ user.nickname }} | <a href="/logout">登出</a></p>
-	<h1>待審查稿件</h1>
-	<table border="1">
-	<tr>
-		<td>作者</td>
-		<td>類別</td>
-		<td>標題</td>
-		<td>操作</td>
-	</tr>
-	{% for a in articles %}
-	<tr>
-		<td>{{ a.nickname }}</td>
-		<td>{{ a.category }}</td>
-		<td>{{ a.title }}</td>
-		<td><a href="/editor/view/{{ a.aid }}">查看內容</a></td>
-	</tr>
-	{% endfor %}
-	</table>
+	<div class="box">
+		<div class="top">
+			<span>編輯：{{ user.nickname }}</span>
+			<a href="/logout">登出</a>
+		</div>
+		<h1>待審查稿件</h1>
+		<table>
+			<tr>
+				<th>作者</th>
+				<th>類別</th>
+				<th>標題</th>
+				<th>操作</th>
+			</tr>
+			{% for a in articles %}
+			<tr>
+				<td>{{ a.nickname }}</td>
+				<td>{{ a.category }}</td>
+				<td>{{ a.title }}</td>
+				<td><a class="btn" href="/editor/view/{{ a.aid }}">查看內容</a></td>
+			</tr>
+			{% else %}
+			<tr><td colspan="4" class="empty">目前沒有待審查的稿件</td></tr>
+			{% endfor %}
+		</table>
+	</div>
 </body>
 </html>

@@ -1,25 +1,21 @@
--- 投稿審查系統 資料表
--- 用法：Adminer 登入 → 選資料庫 → 「SQL 命令」→ 貼上全部 → 執行
 
-DROP TABLE IF EXISTS "public"."articles";
 DROP TABLE IF EXISTS "public"."users";
 
--- 使用者（沿用課堂 users 表：id / pwd / nickname，多加 role 角色欄位）
 CREATE TABLE "public"."users" (
     "id"       character varying(15) PRIMARY KEY,
     "pwd"      character varying(30) NOT NULL,
     "nickname" character varying(30) NOT NULL,
-    "role"     character varying(10) NOT NULL   -- 'author' 作者 / 'editor' 編輯
+    "role"     character varying(10) NOT NULL   
 );
 
 -- 稿件
 CREATE TABLE "public"."articles" (
-    "aid"      serial PRIMARY KEY,                       -- 稿件編號，自動遞增
-    "author"   character varying(15) NOT NULL REFERENCES users(id),  -- 作者帳號
-    "category" character varying(20) NOT NULL,           -- 類別
-    "title"    character varying(100) NOT NULL,          -- 標題
-    "content"  text NOT NULL,                            -- 文章內容
-    "status"   character varying(10) NOT NULL DEFAULT '編輯中'  -- 編輯中 / 審查中 / 已通過
+    "aid"      serial PRIMARY KEY,                       
+    "author"   character varying(15) NOT NULL REFERENCES users(id),  
+    "category" character varying(20) NOT NULL,           
+    "title"    character varying(100) NOT NULL,          
+    "content"  text NOT NULL,                            
+    "status"   character varying(10) NOT NULL DEFAULT '編輯中'  
 );
 
 INSERT INTO "public"."users" ("id", "pwd", "nickname", "role") VALUES

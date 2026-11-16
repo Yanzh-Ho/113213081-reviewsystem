@@ -1,36 +1,80 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-<head><meta charset="UTF-8"><title>我的投稿</title></head>
+<head>
+<meta charset="UTF-8">
+<title>我的投稿</title>
+<style>
+	body { margin: 0; padding: 40px 20px; background-color: #eef2f6;
+	       font-family: "Microsoft JhengHei", sans-serif; }
+	.box { background-color: white; max-width: 860px; margin: 0 auto; padding: 30px 40px;
+	       border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+	.top { display: flex; justify-content: space-between; color: #555; font-size: 14px; }
+	.top a { color: #1a73e8; text-decoration: none; }
+	.head { display: flex; justify-content: space-between; align-items: center; }
+	h1 { color: #1a73e8; font-size: 24px; }
+	table { width: 100%; border-collapse: collapse; }
+	th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e0e0e0; }
+	th { background-color: #f5f8fc; color: #555; font-size: 14px; }
+	tr:hover td { background-color: #fafcff; }
+
+	/* 按鈕 */
+	.btn { display: inline-block; padding: 6px 14px; border-radius: 6px; font-size: 14px;
+	       text-decoration: none; border: none; cursor: pointer; font-family: inherit; }
+	.btn-blue  { background-color: #1a73e8; color: white; }
+	.btn-green { background-color: #2e7d32; color: white; }
+	.btn-red   { background-color: white; color: #c62828; border: 1px solid #c62828; }
+	.btn:hover { opacity: 0.85; }
+	form.inline { display: inline; }
+
+	/* 狀態標籤：不同狀態不同顏色 */
+	.tag { padding: 3px 10px; border-radius: 12px; font-size: 13px; }
+	.編輯中 { background-color: #eeeeee; color: #555; }
+	.審查中 { background-color: #fff3c4; color: #8a6d00; }
+	.已通過 { background-color: #d6f5d6; color: #2e7d32; }
+
+	.empty { text-align: center; color: #999; padding: 30px; }
+</style>
+</head>
 <body>
-	<p>作者：{{ user.nickname }} | <a href="/logout">登出</a></p>
-	<h1>我的投稿稿件</h1>
-	<p><a href="/author/new">＋新增投稿</a></p>
-	<table border="1">
-	<tr>
-		<td>類別</td>
-		<td>標題</td>
-		<td>審查狀態</td>
-		<td>操作</td>
-	</tr>
-	{% for a in articles %}
-	<tr>
-		<td>{{ a.category }}</td>
-		<td>{{ a.title }}</td>
-		<td>{{ a.status }}</td>
-		<td>
-		{% if a.status == '編輯中' %}
-			<a href="/author/edit/{{ a.aid }}">編輯</a>
-			<form method="post" action="/author/submit/{{ a.aid }}" style="display:inline">
-				<input type="submit" value="送出投稿">
-			</form>
-			<form method="post" action="/author/delete/{{ a.aid }}" style="display:inline"
-				onsubmit="return confirm('確定要刪除嗎？')">
-				<input type="submit" value="刪除">
-			</form>
-		{% endif %}
-		</td>
-	</tr>
-	{% endfor %}
-	</table>
+	<div class="box">
+		<div class="top">
+			<span>作者：{{ user.nickname }}</span>
+			<a href="/logout">登出</a>
+		</div>
+		<div class="head">
+			<h1>我的投稿稿件</h1>
+			<a class="btn btn-blue" href="/author/new">＋ 新增投稿</a>
+		</div>
+		<table>
+			<tr>
+				<th>類別</th>
+				<th>標題</th>
+				<th>審查狀態</th>
+				<th>操作</th>
+			</tr>
+			{% for a in articles %}
+			<tr>
+				<td>{{ a.category }}</td>
+				<td>{{ a.title }}</td>
+				<td><span class="tag {{ a.status }}">{{ a.status }}</span></td>
+				<td>
+				{% if a.status == '編輯中' %}
+					<a class="btn btn-blue" href="/author/edit/{{ a.aid }}">編輯</a>
+					<form class="inline" method="post" action="/author/submit/{{ a.aid }}"
+						onsubmit="return confirm('確定送出審查？送出後就不能修改')">
+						<input class="btn btn-green" type="submit" value="送出投稿">
+					</form>
+					<form class="inline" method="post" action="/author/delete/{{ a.aid }}"
+						onsubmit="return confirm('確定要刪除嗎？')">
+						<input class="btn btn-red" type="submit" value="刪除">
+					</form>
+				{% endif %}
+				</td>
+			</tr>
+			{% else %}
+			<tr><td colspan="4" class="empty">目前沒有稿件，按右上角新增投稿</td></tr>
+			{% endfor %}
+		</table>
+	</div>
 </body>
 </html>
